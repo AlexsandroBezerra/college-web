@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import {
   Button,
-  Flex,
+  Center,
   Stack,
   Input,
   InputGroup,
@@ -23,7 +23,7 @@ export default function Home() {
         <title>Login</title>
       </Head>
 
-      <Flex align="center" justify="center" height="100vh" direction="column">
+      <Center height="100vh" flexDirection="column">
         <Stack spacing={3} as="form" onSubmit={handleSignIn}>
           <InputGroup size="lg">
             <InputLeftElement pointerEvents="none">
@@ -49,7 +49,7 @@ export default function Home() {
             Entrar como professor <ArrowForwardIcon mx="2px" />
           </Link>
         </NextLink>
-      </Flex>
+      </Center>
     </>
   );
 }
