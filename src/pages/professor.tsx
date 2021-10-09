@@ -31,6 +31,7 @@ type SignInFormData = {
 
 export default function Professor() {
   const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signIn } = useContext(AuthContext);
 
@@ -40,10 +41,14 @@ export default function Professor() {
 
   const handleSignIn = handleSubmit(
     async ({ email, password }: SignInFormData) => {
+      setIsLoading(true);
+
       await signIn({
         email,
         password,
       });
+
+      setIsLoading(false);
     }
   );
 
@@ -94,7 +99,7 @@ export default function Professor() {
             </InputRightElement>
           </InputGroup>
 
-          <Button size="lg" type="submit">
+          <Button size="lg" type="submit" isLoading={isLoading}>
             Entrar
           </Button>
         </Stack>

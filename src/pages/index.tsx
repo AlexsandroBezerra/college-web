@@ -8,7 +8,7 @@ import {
   InputLeftElement,
   Link,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon, EmailIcon, InfoIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, InfoIcon } from "@chakra-ui/icons";
 import Head from "next/head";
 import NextLink from "next/link";
 
