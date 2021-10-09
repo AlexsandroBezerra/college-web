@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Flex,
   Menu,
   MenuButton,
@@ -14,8 +15,10 @@ import Head from "next/head";
 
 import { MainContainer } from "../components/Main";
 import { SignOutConfirmationDialog } from "../components/SignOutConfirmation";
+import { AuthContext } from "../contexts";
 
 export default function Dashboard() {
+  const { user } = useContext(AuthContext);
   const [isSignOutConfirmationOpen, setIsSignOutConfirmationOpen] =
     useState(false);
 
@@ -30,8 +33,11 @@ export default function Dashboard() {
           <Menu>
             <MenuButton>
               <HStack spacing="1rem">
-                <Avatar name="Alexsandro Gomes Bezerra" />
-                <Text fontWeight="bold">Alexsandro Gomes Bezerra</Text>
+                <Avatar name={user?.name} />
+                <Box textAlign="left">
+                  <Text fontWeight="bold">{user?.name}</Text>
+                  <Text>{user?.email}</Text>
+                </Box>
                 <ChevronDownIcon h={8} w={8} />
               </HStack>
             </MenuButton>

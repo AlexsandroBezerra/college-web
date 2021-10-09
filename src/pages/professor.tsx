@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   Button,
   Center,
@@ -20,16 +21,31 @@ import {
 import Head from "next/head";
 import NextLink from "next/link";
 
+import { AuthContext } from "../contexts";
+import { withSSRGuest } from "../hocs/withGuestSSR";
+
+type SignInFormData = {
+  email: string;
+  password: string;
+};
+
 export default function Professor() {
+  const { register, handleSubmit } = useForm();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { signIn } = useContext(AuthContext);
 
   function toggleIsPasswordVisible() {
     setIsPasswordVisible((state) => !state);
   }
 
-  function handleSignIn(event: FormEvent) {
-    event.preventDefault();
-  }
+  const handleSignIn = handleSubmit(
+    async ({ email, password }: SignInFormData) => {
+      await signIn({
+        email,
+        password,
+      });
+    }
+  );
 
   return (
     <>
@@ -50,6 +66,7 @@ export default function Professor() {
               name="email"
               isRequired
               autoFocus
+              {...register("email", { required: true })}
             />
           </InputGroup>
 
@@ -63,6 +80,7 @@ export default function Professor() {
               placeholder="Senha"
               name="password"
               isRequired
+              {...register("password", { required: true })}
             />
 
             <InputRightElement width="3rem">
@@ -90,3 +108,9 @@ export default function Professor() {
     </>
   );
 }
+
+export const getServerSideProps = withSSRGuest(async () => {
+  return {
+    props: {},
+  };
+});

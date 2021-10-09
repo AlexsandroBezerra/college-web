@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import {
   AlertDialog,
   Button,
@@ -8,7 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+
+import { AuthContext } from "../contexts";
 
 type SignOutConfirmationDialogProps = {
   isOpen: boolean;
@@ -20,12 +21,7 @@ export function SignOutConfirmationDialog({
   onClose,
 }: SignOutConfirmationDialogProps) {
   const closeButtonRef = useRef();
-  const { push } = useRouter();
-
-  function signOut() {
-    onClose();
-    push("/");
-  }
+  const { signOut } = useContext(AuthContext);
 
   return (
     <AlertDialog
