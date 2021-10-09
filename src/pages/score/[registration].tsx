@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { MainContainer } from "../../components/Main";
+import { MainContainer } from "../../components";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function Score() {

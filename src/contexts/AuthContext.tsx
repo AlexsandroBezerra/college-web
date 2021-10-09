@@ -22,7 +22,7 @@ type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
   isAuthenticated: boolean;
-  user: User;
+  user?: User;
 };
 
 type AuthProviderProps = {
