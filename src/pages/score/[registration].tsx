@@ -1,19 +1,8 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Table,
-  Tbody,
-  Thead,
-  Tr,
-  Th,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { MainContainer, ScoreTaskRow, TotalScore } from "../../components";
+import { MainContainer, ScoreTaskTable, TotalScore } from "../../components";
 
 export default function Score() {
   const { query, push } = useRouter();
@@ -36,23 +25,7 @@ export default function Score() {
           <TotalScore score={8} />
         </Flex>
 
-        <Table colorScheme="blackAlpha">
-          <Thead>
-            <Tr>
-              <Th>Tarefa</Th>
-              <Th>Status</Th>
-              <Th>Recompensa</Th>
-              <Th />
-            </Tr>
-          </Thead>
-          <Tbody>
-            <ScoreTaskRow title="Tarefa #05" reward={2} status="pending" />
-            <ScoreTaskRow title="Tarefa #04" reward={2} status="pending" />
-            <ScoreTaskRow title="Tarefa #03" reward={2} status="pending" />
-            <ScoreTaskRow title="Tarefa #02" reward={2} status="done" />
-            <ScoreTaskRow title="Tarefa #01" reward={2} status="done" />
-          </Tbody>
-        </Table>
+        <ScoreTaskTable />
 
         <Flex my="2rem" justify="center">
           <Button size="lg" onClick={handleBackToLogin}>
