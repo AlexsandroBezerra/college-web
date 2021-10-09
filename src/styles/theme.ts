@@ -1,12 +1,15 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 
-export const theme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        bg: "gray.50",
-        color: "gray.900",
+export const theme = extendTheme(
+  withDefaultColorScheme({ colorScheme: "blue" }),
+  {
+    styles: {
+      global: {
+        body: {
+          bg: "gray.50",
+          color: "gray.900",
+        },
       },
     },
-  },
-});
+  }
+);
