@@ -12,6 +12,7 @@ import {
   SkeletonText,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { AuthContext } from "../contexts";
@@ -19,7 +20,7 @@ import { SignOutConfirmationDialog } from "./SignOutConfirmation";
 
 export function Profile() {
   const { user } = useContext(AuthContext);
-  const [isSignOutDialogOpen, setIsSignOutDialogOpen] = useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   if (!user) {
     return (
@@ -47,13 +48,10 @@ export function Profile() {
       </MenuButton>
 
       <MenuList>
-        <MenuItem onClick={() => setIsSignOutDialogOpen(true)}>Sair</MenuItem>
+        <MenuItem onClick={onOpen}>Sair</MenuItem>
       </MenuList>
 
-      <SignOutConfirmationDialog
-        isOpen={isSignOutDialogOpen}
-        onClose={() => setIsSignOutDialogOpen(false)}
-      />
+      <SignOutConfirmationDialog isOpen={isOpen} onClose={onClose} />
     </Menu>
   );
 }
