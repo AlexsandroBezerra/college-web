@@ -22,14 +22,14 @@ import Head from "next/head";
 import NextLink from "next/link";
 
 import { AuthContext } from "../contexts";
-import { withSSRGuest } from "../hocs/withGuestSSR";
+import { withGuest } from "../hocs";
 
 type SignInFormData = {
   email: string;
   password: string;
 };
 
-export default function Professor() {
+function Professor() {
   const { register, handleSubmit } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -43,12 +43,11 @@ export default function Professor() {
     async ({ email, password }: SignInFormData) => {
       setIsLoading(true);
 
-      await signIn({
-        email,
-        password,
-      });
-
-      setIsLoading(false);
+      try {
+        await signIn({ email, password });
+      } catch {
+        setIsLoading(false);
+      }
     }
   );
 
@@ -114,8 +113,4 @@ export default function Professor() {
   );
 }
 
-export const getServerSideProps = withSSRGuest(async () => {
-  return {
-    props: {},
-  };
-});
+export default withGuest(Professor);

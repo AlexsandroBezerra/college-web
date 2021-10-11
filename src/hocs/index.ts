@@ -1,2 +1,2 @@
-export { withSSRGuest } from "./withGuestSSR";
-export { withSSRAuth } from "./withSSRAuth";
+export { withGuest } from "./withGuest";
+export { withAuth } from "./withAuth";

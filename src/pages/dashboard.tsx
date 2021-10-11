@@ -9,9 +9,9 @@ import {
 import Head from "next/head";
 
 import { MainContainer, Profile, TasksTable } from "../components";
-import { withSSRAuth } from "../hocs";
+import { withAuth } from "../hocs";
 
-export default function Dashboard() {
+function Dashboard() {
   return (
     <>
       <Head>
@@ -43,8 +43,4 @@ export default function Dashboard() {
   );
 }
 
-export const getServerSideProps = withSSRAuth(async () => {
-  return {
-    props: {},
-  };
-});
+export default withAuth(Dashboard);

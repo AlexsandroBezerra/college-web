@@ -80,20 +80,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await api.get("sessions/me");
+        const { id, name, email } = response.data;
+
+        setUser({ id, name, email });
+      } catch {
+        signOut();
+      }
+    }
+
     const { [CookiesKeys.TOKEN]: token } = parseCookies();
 
-    if (token) {
-      api
-        .get("sessions/me")
-        .then((response) => {
-          const { id, name, email } = response.data;
-
-          setUser({ id, name, email });
-        })
-        .catch(() => {
-          signOut();
-        });
-    }
+    if (token) getUser();
   }, []);
 
   async function signIn({ email, password }: SignInCredentials) {
