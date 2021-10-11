@@ -41,6 +41,7 @@ export function SignOutConfirmationDialog({
             <Button
               ref={closeButtonRef}
               onClick={onClose}
+              variant="ghost"
               colorScheme="blackAlpha"
             >
               Não

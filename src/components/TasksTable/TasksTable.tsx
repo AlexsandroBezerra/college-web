@@ -9,18 +9,25 @@ import {
   Thead,
   Tr,
   Th,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { TasksRow } from ".";
+import { CreateTaskModal } from "..";
 
 export function TasksTable() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Flex my="1rem">
         <Heading>Tarefas criadas</Heading>
         <Spacer />
-        <Button leftIcon={<AddIcon />}>Criar tarefa</Button>
+        <Button leftIcon={<AddIcon />} onClick={onOpen}>
+          Criar tarefa
+        </Button>
       </Flex>
+
+      <CreateTaskModal isOpen={isOpen} onClose={onClose} />
 
       <Table colorScheme="blackAlpha">
         <Thead>
