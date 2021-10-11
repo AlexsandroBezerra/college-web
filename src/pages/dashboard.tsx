@@ -1,7 +1,14 @@
-import { Flex } from "@chakra-ui/react";
+import {
+  Flex,
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+} from "@chakra-ui/react";
 import Head from "next/head";
 
-import { MainContainer, Profile } from "../components";
+import { MainContainer, Profile, TasksTable } from "../components";
 import { withSSRAuth } from "../hocs";
 
 export default function Dashboard() {
@@ -15,6 +22,22 @@ export default function Dashboard() {
         <Flex as="header" justify="end">
           <Profile />
         </Flex>
+
+        <Tabs>
+          <TabList>
+            <Tab>Tarefas</Tab>
+            <Tab>Alunos</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <TasksTable />
+            </TabPanel>
+            <TabPanel>
+              <p>Alunos!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </MainContainer>
     </>
   );

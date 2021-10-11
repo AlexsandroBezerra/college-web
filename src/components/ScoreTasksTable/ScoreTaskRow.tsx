@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Tr, Td, Badge } from "@chakra-ui/react";
+import { Text, Tr, Td, Badge } from "@chakra-ui/react";
 
 type ScoreTaskRowProps = {
   title: string;
@@ -10,7 +10,9 @@ type ScoreTaskRowProps = {
 export function ScoreTaskRow({ title, status, reward }: ScoreTaskRowProps) {
   return (
     <Tr transition="0.2s" cursor="pointer" _hover={{ bg: "gray.200" }}>
-      <Td>{title}</Td>
+      <Td>
+        <Text fontWeight="bold">{title}</Text>
+      </Td>
       <Td>
         {status === "done" ? (
           <Badge colorScheme="green">Feito</Badge>
