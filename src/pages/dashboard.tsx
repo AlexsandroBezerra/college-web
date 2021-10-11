@@ -8,8 +8,13 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 
-import { MainContainer, Profile, TasksTable } from "../components";
 import { withAuth } from "../hocs";
+import {
+  MainContainer,
+  Profile,
+  TasksTable,
+  StudentsTable,
+} from "../components";
 
 function Dashboard() {
   return (
@@ -34,7 +39,7 @@ function Dashboard() {
               <TasksTable />
             </TabPanel>
             <TabPanel>
-              <p>Alunos!</p>
+              <StudentsTable />
             </TabPanel>
           </TabPanels>
         </Tabs>
