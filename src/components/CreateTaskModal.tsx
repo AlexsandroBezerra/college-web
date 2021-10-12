@@ -31,22 +31,32 @@ const TWO_SECONDS = 2000;
 
 export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
   const { register, handleSubmit, reset } = useForm();
-  const toast = useToast();
   const { mutate } = useSWRConfig();
+  const toast = useToast();
 
   const handleCreateTask = handleSubmit(
     async ({ title, reward }: CreateTaskFormData) => {
-      await api.post("tasks", { title, reward });
-      onClose();
-      toast({
-        title: "Tarefa criada",
-        description: "Tarefa criada com sucesso.",
-        status: "success",
-        duration: TWO_SECONDS,
-        position: "top-right",
-      });
-      reset();
-      mutate("tasks");
+      try {
+        await api.post("tasks", { title, reward });
+        onClose();
+        toast({
+          title: "Tarefa criada",
+          description: "Tarefa criada com sucesso.",
+          status: "success",
+          duration: TWO_SECONDS,
+          position: "top-right",
+        });
+        reset();
+        mutate("tasks");
+      } catch {
+        toast({
+          title: "Erro!",
+          description: "Erro ao criar tarefa, tente novamente.",
+          status: "error",
+          duration: TWO_SECONDS,
+          position: "top-right",
+        });
+      }
     }
   );
 

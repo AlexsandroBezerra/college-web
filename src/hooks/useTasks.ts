@@ -6,6 +6,7 @@ type Task = {
   id: number;
   title: string;
   reward: number;
+  createdAt: string;
 };
 
 type UseTasks = {
@@ -16,7 +17,7 @@ type UseTasks = {
 };
 
 export function useTasks(swrConfigs?: SWRConfiguration): UseTasks {
-  const { data, isValidating, error, mutate } = useSWR<Task[]>(
+  const { data, isValidating, error } = useSWR<Task[]>(
     "tasks",
     () => api.get<Task[]>("tasks").then((res) => res.data),
     swrConfigs

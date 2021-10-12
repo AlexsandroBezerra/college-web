@@ -17,9 +17,9 @@ export function StudentsTable() {
   return (
     <>
       <Flex my="1rem">
-        <Heading>Alunos cadastrados</Heading>
+        <Heading>Estudantes cadastrados</Heading>
         <Spacer />
-        <Button leftIcon={<AddIcon />}>Cadastrar tarefa</Button>
+        <Button leftIcon={<AddIcon />}>Cadastrar estudante</Button>
       </Flex>
 
       <Table colorScheme="blackAlpha">

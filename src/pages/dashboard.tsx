@@ -31,7 +31,7 @@ function Dashboard() {
         <Tabs>
           <TabList>
             <Tab>Tarefas</Tab>
-            <Tab>Alunos</Tab>
+            <Tab>Estudantes</Tab>
           </TabList>
 
           <TabPanels>

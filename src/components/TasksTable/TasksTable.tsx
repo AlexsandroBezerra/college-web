@@ -37,13 +37,20 @@ export function TasksTable() {
           <Tr>
             <Th>Título</Th>
             <Th>Recompensa</Th>
+            <Th>Criada em</Th>
             <Th />
           </Tr>
         </Thead>
         <Tbody>
           {tasks?.map((task) => {
             return (
-              <TasksRow key={task.id} title={task.title} reward={task.reward} />
+              <TasksRow
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                reward={task.reward}
+                createdAt={task.createdAt}
+              />
             );
           })}
         </Tbody>
