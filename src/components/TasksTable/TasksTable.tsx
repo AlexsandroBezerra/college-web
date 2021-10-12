@@ -12,13 +12,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { TasksRow } from ".";
+import { Loader, TasksRow } from ".";
 import { CreateTaskModal } from "..";
 import { useTasks } from "../../hooks";
 
 export function TasksTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { tasks } = useTasks();
+  const { tasks, isLoading } = useTasks();
 
   return (
     <>
@@ -42,17 +42,21 @@ export function TasksTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {tasks?.map((task) => {
-            return (
-              <TasksRow
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                reward={task.reward}
-                createdAt={task.createdAt}
-              />
-            );
-          })}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            tasks.map((task) => {
+              return (
+                <TasksRow
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  reward={task.reward}
+                  createdAt={task.createdAt}
+                />
+              );
+            })
+          )}
         </Tbody>
       </Table>
     </>
