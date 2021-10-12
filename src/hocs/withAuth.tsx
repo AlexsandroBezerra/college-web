@@ -14,10 +14,10 @@ export function withAuth(Page: NextPage<any>): NextPage<any> {
     useEffect(() => {
       const cookies = parseCookies();
 
-      if (!cookies[CookiesKeys.TOKEN]) {
-        push("/");
-      } else {
+      if (cookies[CookiesKeys.TOKEN]) {
         setIsLoading(false);
+      } else {
+        push("/");
       }
     }, [push]);
 

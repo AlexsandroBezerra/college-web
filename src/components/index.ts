@@ -4,6 +4,7 @@ export { SignOutConfirmationDialog } from "./SignOutConfirmation";
 export { TotalScore } from "./TotalScore";
 export { LoadingPage } from "./LoadingPage";
 export { CreateTaskModal } from "./CreateTaskModal";
+export { CreateTaskDoneConfirmation } from "./CreateTaskDoneConfirmation";
 export * from "./ScoreTasksTable";
 export * from "./TasksTable";
 export * from "./StudentsTable";
