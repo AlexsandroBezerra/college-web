@@ -2,7 +2,23 @@ import { Table, Tbody, Thead, Tr, Th } from "@chakra-ui/react";
 
 import { ScoreTaskRow } from ".";
 
-export function ScoreTaskTable() {
+type Task = {
+  id: number;
+  title: string;
+  reward: number;
+  isEnabled: true;
+  createdAt: string;
+};
+
+type ScoreTaskTableProps = {
+  tasksDone: Task[];
+  tasksPending: Task[];
+};
+
+export function ScoreTaskTable({
+  tasksDone,
+  tasksPending,
+}: ScoreTaskTableProps) {
   return (
     <Table colorScheme="blackAlpha">
       <Thead>
@@ -14,11 +30,26 @@ export function ScoreTaskTable() {
         </Tr>
       </Thead>
       <Tbody>
-        <ScoreTaskRow title="Tarefa #05" reward={2} status="pending" />
-        <ScoreTaskRow title="Tarefa #04" reward={2} status="pending" />
-        <ScoreTaskRow title="Tarefa #03" reward={2} status="pending" />
-        <ScoreTaskRow title="Tarefa #02" reward={2} status="done" />
-        <ScoreTaskRow title="Tarefa #01" reward={2} status="done" />
+        {tasksPending.map((task) => {
+          return (
+            <ScoreTaskRow
+              key={task.id}
+              title={task.title}
+              reward={task.reward}
+              status="pending"
+            />
+          );
+        })}
+        {tasksDone.map((task) => {
+          return (
+            <ScoreTaskRow
+              key={task.id}
+              title={task.title}
+              reward={task.reward}
+              status="done"
+            />
+          );
+        })}
       </Tbody>
     </Table>
   );

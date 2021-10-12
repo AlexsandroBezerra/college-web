@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import {
   Button,
   Center,
@@ -11,11 +11,27 @@ import {
 import { ArrowForwardIcon, InfoIcon } from "@chakra-ui/icons";
 import Head from "next/head";
 import NextLink from "next/link";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { RegistrationContext } from "../contexts";
+
+type GetStudentScoreFormData = {
+  registration: string;
+};
 
 export default function Home() {
-  function handleSignIn(event: FormEvent) {
-    event.preventDefault();
-  }
+  const { register, handleSubmit } = useForm<GetStudentScoreFormData>();
+  const { push } = useRouter();
+  const { setRegistration, clear } = useContext(RegistrationContext);
+
+  useEffect(() => {
+    clear();
+  }, [clear]);
+
+  const handleGetStudentScore = handleSubmit(({ registration }) => {
+    setRegistration(Number(registration));
+    push(`/score`);
+  });
 
   return (
     <>
@@ -24,7 +40,7 @@ export default function Home() {
       </Head>
 
       <Center height="100vh" flexDirection="column">
-        <Stack spacing={3} as="form" onSubmit={handleSignIn}>
+        <Stack spacing={3} as="form" onSubmit={handleGetStudentScore}>
           <InputGroup size="lg">
             <InputLeftElement pointerEvents="none">
               <InfoIcon color="gray.300" />
@@ -36,6 +52,7 @@ export default function Home() {
               name="registration"
               isRequired
               autoFocus
+              {...register("registration", { required: true })}
             />
           </InputGroup>
 

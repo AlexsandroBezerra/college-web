@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { StudentsRow, Loader } from ".";
+import { StudentsRow, StudentsLoader } from ".";
 import { useStudents } from "../../hooks";
 import { CreateStudentModal } from "../CreateStudentModal";
 
@@ -41,7 +41,7 @@ export function StudentsTable() {
         </Thead>
         <Tbody>
           {isLoading ? (
-            <Loader />
+            <StudentsLoader />
           ) : (
             students.map((student) => {
               return (
