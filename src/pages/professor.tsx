@@ -10,6 +10,7 @@ import {
   InputLeftElement,
   InputRightElement,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import {
   EmailIcon,
@@ -29,11 +30,14 @@ type SignInFormData = {
   password: string;
 };
 
+const THREE_SECONDS = 3000;
+
 function Professor() {
   const { register, handleSubmit } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signIn } = useContext(AuthContext);
+  const toast = useToast();
 
   function toggleIsPasswordVisible() {
     setIsPasswordVisible((state) => !state);
@@ -47,6 +51,15 @@ function Professor() {
         await signIn({ email, password });
       } catch {
         setIsLoading(false);
+
+        toast({
+          title: "Credenciais inválidas",
+          description: "A combinação email/senha está errada, tente novamente.",
+          status: "error",
+          duration: THREE_SECONDS,
+          isClosable: true,
+          position: "top-right",
+        });
       }
     }
   );

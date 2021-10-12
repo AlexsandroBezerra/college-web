@@ -44,6 +44,7 @@ export function DeleteTaskConfirmation({
       });
       onClose();
       mutate("tasks");
+      mutate("students");
     } catch {
       toast({
         title: "Erro!",

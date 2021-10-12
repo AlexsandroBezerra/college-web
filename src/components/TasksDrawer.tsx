@@ -70,6 +70,7 @@ export function TasksDrawer({
                   display="block"
                   w="100%"
                   textAlign="left"
+                  whiteSpace="pre-wrap"
                   onClick={() => handleDoTask(task)}
                 >
                   {task.title} - {task.reward} pontos

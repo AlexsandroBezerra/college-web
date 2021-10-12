@@ -97,41 +97,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   async function signIn({ email, password }: SignInCredentials) {
-    try {
-      const response = await api.post<{}, AxiosResponse<SignInResponse>>(
-        "sessions",
-        { email, password }
-      );
+    const response = await api.post<{}, AxiosResponse<SignInResponse>>(
+      "sessions",
+      { email, password }
+    );
 
-      const { user, token, refreshToken } = response.data;
+    const { user, token, refreshToken } = response.data;
 
-      setCookie(undefined, CookiesKeys.TOKEN, token, tokenCookieConfigs);
-      setCookie(
-        undefined,
-        CookiesKeys.REFRESH_TOKEN,
-        refreshToken,
-        tokenCookieConfigs
-      );
+    setCookie(undefined, CookiesKeys.TOKEN, token, tokenCookieConfigs);
+    setCookie(
+      undefined,
+      CookiesKeys.REFRESH_TOKEN,
+      refreshToken,
+      tokenCookieConfigs
+    );
 
-      setUser(user);
-      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+    setUser(user);
+    api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-      Router.push("/dashboard");
-      authChannel.postMessage("signIn");
-    } catch (err) {
-      console.log(err);
-
-      const THREE_SECONDS = 3000;
-
-      toast({
-        title: "Credenciais inválidas",
-        description: "A combinação email/senha está errada, tente novamente.",
-        status: "error",
-        duration: THREE_SECONDS,
-        isClosable: true,
-        position: "top-right",
-      });
-    }
+    Router.push("/dashboard");
+    authChannel.postMessage("signIn");
   }
 
   return (
