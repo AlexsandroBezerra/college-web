@@ -11,11 +11,11 @@ import {
   Th,
 } from "@chakra-ui/react";
 
-import { StudentsRow } from ".";
+import { StudentsRow, Loader } from ".";
 import { useStudents } from "../../hooks";
 
 export function StudentsTable() {
-  const { students } = useStudents();
+  const { students, isLoading } = useStudents();
 
   return (
     <>
@@ -35,16 +35,20 @@ export function StudentsTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {students?.map((student) => {
-            return (
-              <StudentsRow
-                id={student.id}
-                key={student.id}
-                name={student.name}
-                score={student.score}
-              />
-            );
-          })}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            students.map((student) => {
+              return (
+                <StudentsRow
+                  id={student.id}
+                  key={student.id}
+                  name={student.name}
+                  score={student.score}
+                />
+              );
+            })
+          )}
         </Tbody>
       </Table>
     </>
