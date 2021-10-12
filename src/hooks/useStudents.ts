@@ -5,6 +5,7 @@ import { api } from "../services/apiClient";
 type Student = {
   id: number;
   name: string;
+  score: number;
 };
 
 type UseStudents = {

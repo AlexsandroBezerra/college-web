@@ -88,10 +88,10 @@ export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
 
         <ModalFooter>
           <Button onClick={onClose} colorScheme="red" mr={3}>
-            Cancel
+            Descartar
           </Button>
           <Button colorScheme="blue" type="submit">
-            Save
+            Salvar
           </Button>
         </ModalFooter>
       </ModalContent>

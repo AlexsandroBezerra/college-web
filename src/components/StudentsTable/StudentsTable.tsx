@@ -12,8 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 import { StudentsRow } from ".";
+import { useStudents } from "../../hooks";
 
 export function StudentsTable() {
+  const { students } = useStudents();
+
   return (
     <>
       <Flex my="1rem">
@@ -27,17 +30,21 @@ export function StudentsTable() {
           <Tr>
             <Th>Nome</Th>
             <Th>Matricula</Th>
-            <Th textAlign="center">Tarefas concluídas</Th>
             <Th textAlign="center">Pontuação atual</Th>
             <Th />
           </Tr>
         </Thead>
         <Tbody>
-          <StudentsRow title="Aluno #05" reward={202104478402} />
-          <StudentsRow title="Aluno #04" reward={202104478402} />
-          <StudentsRow title="Aluno #03" reward={202104478402} />
-          <StudentsRow title="Aluno #02" reward={202104478402} />
-          <StudentsRow title="Aluno #01" reward={202104478402} />
+          {students?.map((student) => {
+            return (
+              <StudentsRow
+                id={student.id}
+                key={student.id}
+                name={student.name}
+                score={student.score}
+              />
+            );
+          })}
         </Tbody>
       </Table>
     </>
