@@ -9,20 +9,25 @@ import {
   Thead,
   Tr,
   Th,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { StudentsRow, Loader } from ".";
 import { useStudents } from "../../hooks";
+import { CreateStudentModal } from "../CreateStudentModal";
 
 export function StudentsTable() {
   const { students, isLoading } = useStudents();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
       <Flex my="1rem">
         <Heading>Estudantes cadastrados</Heading>
         <Spacer />
-        <Button leftIcon={<AddIcon />}>Cadastrar estudante</Button>
+        <Button leftIcon={<AddIcon />} onClick={onOpen}>
+          Cadastrar estudante
+        </Button>
       </Flex>
 
       <Table colorScheme="blackAlpha">
@@ -51,6 +56,8 @@ export function StudentsTable() {
           )}
         </Tbody>
       </Table>
+
+      <CreateStudentModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

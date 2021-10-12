@@ -16,41 +16,47 @@ import { useForm } from "react-hook-form";
 import { api } from "../services/apiClient";
 import { useSWRConfig } from "swr";
 
-type CreateTaskModalProps = {
+type CreateStudentModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type CreateTaskFormData = {
-  title: string;
-  reward: string;
+type CreateStudentFormData = {
+  name: string;
+  registration: string;
 };
 
 const TWO_SECONDS = 2000;
 
-export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
+export function CreateStudentModal({
+  onClose,
+  isOpen,
+}: CreateStudentModalProps) {
   const { register, handleSubmit, reset } = useForm();
   const { mutate } = useSWRConfig();
   const toast = useToast();
 
-  const handleCreateTask = handleSubmit(
-    async ({ title, reward }: CreateTaskFormData) => {
+  const handleCreateStudent = handleSubmit(
+    async ({ registration, name }: CreateStudentFormData) => {
       try {
-        await api.post("tasks", { title, reward });
+        await api.post("students", {
+          registration: Number(registration),
+          name,
+        });
         onClose();
         toast({
-          title: "Tarefa criada",
-          description: "Tarefa criada com sucesso.",
+          title: "Estudante cadastrado",
+          description: "Estudante cadastrado com sucesso.",
           status: "success",
           duration: TWO_SECONDS,
           position: "top-right",
         });
         reset();
-        mutate("tasks");
+        mutate("students");
       } catch {
         toast({
           title: "Erro!",
-          description: "Erro ao criar tarefa, tente novamente.",
+          description: "Erro ao cadastrar estudante, tente novamente.",
           status: "error",
           duration: TWO_SECONDS,
           position: "top-right",
@@ -62,25 +68,25 @@ export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent as="form" onSubmit={handleCreateTask}>
+      <ModalContent as="form" onSubmit={handleCreateStudent}>
         <ModalHeader>Criar tarefa</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>
-            <FormLabel>Título</FormLabel>
+            <FormLabel>Matrícula</FormLabel>
             <Input
               autoFocus
-              placeholder="Título"
-              {...register("title", { required: true })}
+              placeholder="Matrícula"
+              type="number"
+              {...register("registration", { required: true })}
             />
           </FormControl>
 
           <FormControl mt={4}>
-            <FormLabel>Recompensa</FormLabel>
+            <FormLabel>Nome</FormLabel>
             <Input
-              placeholder="Padrão: 2"
-              type="number"
-              {...register("reward", { required: true })}
+              placeholder="Nome"
+              {...register("name", { required: true })}
             />
           </FormControl>
         </ModalBody>
