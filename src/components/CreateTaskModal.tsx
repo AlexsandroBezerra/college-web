@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { api } from "../services/apiClient";
+import { useSWRConfig } from "swr";
 
 type CreateTaskModalProps = {
   isOpen: boolean;
@@ -29,8 +30,9 @@ type CreateTaskFormData = {
 const TWO_SECONDS = 2000;
 
 export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
+  const { mutate } = useSWRConfig();
 
   const handleCreateTask = handleSubmit(
     async ({ title, reward }: CreateTaskFormData) => {
@@ -43,6 +45,8 @@ export function CreateTaskModal({ onClose, isOpen }: CreateTaskModalProps) {
         duration: TWO_SECONDS,
         position: "top-right",
       });
+      reset();
+      mutate("tasks");
     }
   );
 

@@ -14,9 +14,12 @@ import {
 
 import { TasksRow } from ".";
 import { CreateTaskModal } from "..";
+import { useTasks } from "../../hooks";
 
 export function TasksTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { tasks } = useTasks();
+
   return (
     <>
       <Flex my="1rem">
@@ -38,11 +41,11 @@ export function TasksTable() {
           </Tr>
         </Thead>
         <Tbody>
-          <TasksRow title="Tarefa #05" reward={5} />
-          <TasksRow title="Tarefa #04" reward={5} />
-          <TasksRow title="Tarefa #03" reward={5} />
-          <TasksRow title="Tarefa #02" reward={5} />
-          <TasksRow title="Tarefa #01" reward={5} />
+          {tasks?.map((task) => {
+            return (
+              <TasksRow key={task.id} title={task.title} reward={task.reward} />
+            );
+          })}
         </Tbody>
       </Table>
     </>
