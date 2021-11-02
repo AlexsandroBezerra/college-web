@@ -27,10 +27,11 @@ type UseStudentTasks = {
 
 export function useStudentTasks(
   registration: number,
+  shouldNotFetch?: boolean,
   swrConfigs?: SWRConfiguration
 ): UseStudentTasks {
   const { data, isValidating, error } = useSWR<StudentTasks>(
-    `studentTasks-${registration}`,
+    shouldNotFetch ? null : `studentTasks-${registration}`,
     () =>
       api
         .get<StudentTasks>(`students/${registration}/tasks`)

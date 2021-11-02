@@ -37,7 +37,7 @@ export function TasksDrawer({
   studentName,
 }: TasksDrawerProps) {
   const [selectedTask, setSelectedTask] = useState<Task>();
-  const { studentTasks, isLoading } = useStudentTasks(studentId);
+  const { studentTasks, isLoading } = useStudentTasks(studentId, !isOpen);
   const {
     isOpen: isOpenConfirmation,
     onClose: onCloseConfirmation,
