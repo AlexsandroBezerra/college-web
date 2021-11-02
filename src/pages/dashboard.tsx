@@ -28,7 +28,7 @@ function Dashboard() {
   }
 
   const initialTabIndex = useMemo(() => {
-    const [hashRoute] = asPath.match(/#([a-z0-9]+)/gi);
+    const [hashRoute] = asPath.match(/#([a-z0-9]+)/gi) || [];
 
     const tabIndex = hashRoutes.findIndex((route) => route === hashRoute);
     const isValidIndex = tabIndex >= 0;
