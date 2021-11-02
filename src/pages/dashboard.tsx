@@ -28,7 +28,7 @@ function Dashboard() {
           <Profile />
         </Flex>
 
-        <Tabs>
+        <Tabs isLazy>
           <TabList>
             <Tab>Tarefas</Tab>
             <Tab>Estudantes</Tab>
