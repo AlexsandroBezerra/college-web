@@ -15,8 +15,27 @@ import {
   TasksTable,
   StudentsTable,
 } from "../components";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+
+const hashRoutes = ["#tarefas", "#estudantes"];
 
 function Dashboard() {
+  const { push, asPath } = useRouter();
+
+  function handlePushHashRoute(index: number) {
+    push({ hash: hashRoutes[index] });
+  }
+
+  const initialTabIndex = useMemo(() => {
+    const [hashRoute] = asPath.match(/#([a-z0-9]+)/gi);
+
+    const tabIndex = hashRoutes.findIndex((route) => route === hashRoute);
+    const isValidIndex = tabIndex >= 0;
+
+    return isValidIndex ? tabIndex : 0;
+  }, [asPath]);
+
   return (
     <>
       <Head>
@@ -28,7 +47,11 @@ function Dashboard() {
           <Profile />
         </Flex>
 
-        <Tabs isLazy>
+        <Tabs
+          isLazy
+          onChange={handlePushHashRoute}
+          defaultIndex={initialTabIndex}
+        >
           <TabList>
             <Tab>Tarefas</Tab>
             <Tab>Estudantes</Tab>
